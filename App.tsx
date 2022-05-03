@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,6 +18,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 import {
   Colors,
@@ -57,6 +58,15 @@ const Section: React.FC<{
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [initializing, setInitializing] = useState<boolean>(true);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  useEffect(() => {
+    auth().onAuthStateChanged(userState => {
+      setUser(userState);
+      if (initializing) setInitializing(false);
+    });
+  }, []);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -69,6 +79,15 @@ const App = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        {!user?
+          <View>
+            <Text>Login</Text>
+          </View>
+          :
+          <View>
+            <Text>Welcome {user.email}</Text>
+          </View>
+        } 
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
