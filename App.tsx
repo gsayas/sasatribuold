@@ -19,6 +19,7 @@ import {
   View,
 } from 'react-native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import PhoneSignIn from './PhoneSignIn';
 
 import {
   Colors,
@@ -78,14 +79,13 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         {!user?
           <View>
-            <Text>Login</Text>
+            <PhoneSignIn />
           </View>
           :
           <View>
-            <Text>Welcome {user.email}</Text>
+            <Text>Welcome {user.phoneNumber}</Text>
           </View>
         } 
         <View
@@ -102,7 +102,7 @@ const App = () => {
             <DebugInstructions />
           </Section>
           <Section title="Learn More">
-            Read the docs to discover what to do next:
+            Read the docs to discover what to do next...
           </Section>
           <LearnMoreLinks />
         </View>
