@@ -43,6 +43,8 @@
       "jsx",
       "json",
       "node"
-    ]
+    ],
+    "transformIgnorePatterns": ["/node_modules/(?!@react-native|react-native)"],
+    "setupFilesAfterEnv": ["./jest.setup.js"]
   }
 }
