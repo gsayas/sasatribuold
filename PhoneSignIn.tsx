@@ -19,7 +19,6 @@ export default function PhoneSignIn() {
       await confirm?.confirm(code);
       console.log('valid code.');
     } catch (error) {
-      console.log(code);
       console.log('Invalid code.');
     }
   }
@@ -35,7 +34,7 @@ export default function PhoneSignIn() {
 
   return (
     <>
-      <TextInput value={code} onChangeText={text => setCode(text)} />
+      <TextInput placeholder='confirmation code' value={code} onChangeText={text => setCode(text)} />
       <Button title="Confirm Code" onPress={() => confirmCode()} />
     </>
   );
